@@ -1,0 +1,4 @@
+[2020-03-05 10:30:22]  INFO (effluent.DamCode - main:29) - firstLine start..
+[2020-03-05 10:30:22]  INFO (effluent.DamCode - main:150) - 진행도::::::1/1
+[2020-03-05 10:30:23]  INFO (effluent.DamCode - main:168) - parsing complete!
+[2020-03-05 10:30:23]  INFO (effluent.DamCode - main:175) - 실행 시간 : 1.493초
