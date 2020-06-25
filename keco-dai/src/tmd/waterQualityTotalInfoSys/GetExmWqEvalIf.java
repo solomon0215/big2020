@@ -76,7 +76,7 @@ public class GetExmWqEvalIf {
 					File file = null;
 
 					file = new File(args[0]);
-
+					
 					while (rs.next()) {
 
 						String WATERDGR_CD = " "; // 수계코드
@@ -86,7 +86,7 @@ public class GetExmWqEvalIf {
 						String UNITDGR_NM = " "; //  단위유역명칭
 						String P_ITEM = " "; // 대상물질
 						String TARGET_WQ = " "; // 목표수질
-
+						
 						WATERDGR_CD = JsonParser.colWrite_String_eic(rs.getString(1));
 						WATERDGR_NM = JsonParser.colWrite_String_eic(rs.getString(2));
 						TA_LEVEL = JsonParser.colWrite_String_eic(rs.getString(3));
