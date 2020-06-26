@@ -151,6 +151,47 @@ public class DBConnection {
 
 	}
 	
+	/**
+	 * @Method	:	"getMysqlConnection" 메소드
+	 * @Since	:	2020. 6. 25.
+	 * @Param	:	String sysNm 
+	 * @Return	:	Connection
+	 * @Desc	:	MySql 커넥션
+	 */
+	public static Connection getMysqlConnection(String sysNm) throws SQLException, ClassNotFoundException {
+		Connection conn = null;
+		String user = "";
+		String pw = "";
+		String url = "";
+		if(sysNm.equals("seo")) {
+			user = getProperty("seo_mysql_user");
+			pw = getProperty("seo_mysql_pw");
+			url = getProperty("seo_mysql_url");
+			
+		}
+        try {
+        	
+        	
+        	if(sysNm.equals("seo")) {
+        		 Class.forName(getProperty("seo_mysql_driver"));    
+        	} 
+            
+            conn = DriverManager.getConnection(url, user, pw);
+            
+            
+        } catch (ClassNotFoundException cnfe) {
+            System.out.println("DB 드라이버 로딩 실패 :"+ cnfe.toString());
+        } catch (SQLException sqle) {
+            System.out.println("DB 접속실패 : "+ sqle.toString());
+            System.out.println("DB 접속시도 정보  user :"+ user +": pw : "+ pw +": url :"+ url);
+        } catch (Exception e) {
+            System.out.println("Unkonwn error");
+            e.printStackTrace();
+        }		
+		
+		return conn;
+	}
+	
 	//외부 시스템 오라클 커넥션
 	public static Connection getOraConnection(String sysNm) throws SQLException, ClassNotFoundException {
 		
@@ -190,8 +231,8 @@ public class DBConnection {
 	          pw = getScienceProperty("tmd_oracle_pw");
 	          url = getScienceProperty("tmd_oracle_url");
 	          
-		 }
-       
+		 } 
+		 
         try {
         	
         	

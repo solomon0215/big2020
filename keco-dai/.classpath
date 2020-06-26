@@ -17,5 +17,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/solom/git/big2020/repogitory/big2020/keco-dai/lib/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/solom/git/big2020/repogitory/big2020/keco-dai/lib/mysql-connector-java-8.0.16.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
