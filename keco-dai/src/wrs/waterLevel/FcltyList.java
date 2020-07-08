@@ -36,7 +36,8 @@ public class FcltyList {
 					String service_key = JsonParser.getProperty("waterLevel_service_key");
 
 					// step 1.파일의 작성
-					File file = new File(JsonParser.getProperty("file_path") + "WRS/TIF_WRS_06.dat");
+//					File file = new File("../../../../test.dat");
+					File file = new File(JsonParser.getProperty("wfile_path") + "WRS/TIF_WRS_06.dat");
 
 					// step 2. 전체 데이터 숫자 파악을 위해 페이지 수 1으로 파싱
 					//String json = "";
@@ -59,6 +60,21 @@ public class FcltyList {
 					}*/
 
 					JSONObject count_obj = JsonParser.parseWrsJson_obj(service_url, service_key, String.valueOf(pageNo), args[0]);
+					// Parsing 하기전에 Retry 할 지 정하기
+					String ifNotRs = ((JSONObject) ((JSONObject) count_obj.get("response")).get("header")).get("resultCode")
+							.toString().trim();
+					JSONObject ifNotIt = (JSONObject) ((JSONObject) count_obj.get("response")).get("body");
+					if ((ifNotRs.equals("00") && ifNotIt.get("items") instanceof String) || (ifNotRs.equals("03"))) {
+						System.out.println("빈값 발생 RETRY 과정 실시");
+						try {
+							System.out.println("3초대기실시");
+							Thread.sleep(3000);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						System.out.println("재전송");
+						count_obj = JsonParser.parseWrsJson_obj(service_url, service_key, String.valueOf(pageNo), args[0]);
+					}
 					JSONObject count_response = (JSONObject) count_obj.get("response");
 
 					JSONObject count_body = (JSONObject) count_response.get("body");
