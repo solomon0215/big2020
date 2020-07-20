@@ -96,7 +96,7 @@ public class WaterPressureList {
 
 					String count_resultCode = count_header.get("resultCode").toString().trim();
 					String count_resultMsg = count_header.get("resultMsg").toString().trim();
-
+					System.out.println(count_resultCode);
 					if ((count_resultCode.equals("03"))) {
 						System.out.println("data not exist!!");
 					} else if ((count_resultCode.equals("00") && count_body.get("items") instanceof String)) {
@@ -145,17 +145,17 @@ public class WaterPressureList {
 						String chk2RsCode = ((JSONObject) ((JSONObject) obj.get("response")).get("header"))
 								.get("resultCode").toString().trim();
 						JSONObject chk2Body = (JSONObject) ((JSONObject) obj.get("response")).get("body");
-						if ((chkRsCode.equals("03"))) {
+						if ((chk2RsCode.equals("03"))) {
 							System.out.println("비정상 재처리 시작");
 							Thread.sleep(3000);
 							obj = JsonParser.parseWrsJson_obj(service_url, service_key, String.valueOf(i), args[0],
 									args[1], args[2], args[3]);
-						} else if ((chkRsCode.equals("00") && chkBody.get("items") instanceof String)) {
+						} else if ((chk2RsCode.equals("00") && chk2Body.get("items") instanceof String)) {
 							System.out.println("비정상 재처리 시작");
 							Thread.sleep(3000);
 							obj = JsonParser.parseWrsJson_obj(service_url, service_key, String.valueOf(i), args[0],
 									args[1], args[2], args[3]);
-						} else if ((!(chkRsCode.equals("00")) && !(chkRsCode.equals("03")))) {
+						} else if ((!(chk2RsCode.equals("00")) && !(chk2RsCode.equals("03")))) {
 							System.out.println("비정상 재처리 시작");
 							Thread.sleep(3000);
 							obj = JsonParser.parseWrsJson_obj(service_url, service_key, String.valueOf(i), args[0],

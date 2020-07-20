@@ -1011,6 +1011,19 @@ public class GetEpeEpoumb {
 								}	
 							}
 						}	
+					} else {
+						try {
+							System.out.println("#############지정된 형식이 아님 제로파일처리");
+							PrintWriter pw = new PrintWriter(
+									new BufferedWriter(new FileWriter(file, true)));
+							pw.write("");
+							pw.flush();
+							pw.close();
+
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+
 					}
 
 					//여기서 파일 작성
