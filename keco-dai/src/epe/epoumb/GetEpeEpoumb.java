@@ -40,6 +40,7 @@ public class GetEpeEpoumb {
 				File file = null;
 
 				//수집서버의 절대경로
+//				file = new File("../../TIF_EPE_01.dat");
 				file = new File("/data1/if_data/EPE/TIF_EPE_01.dat");
 
 				// 루트 엘레멘트인 <PaidPublicComplaint> :: 최상단
@@ -48,7 +49,19 @@ public class GetEpeEpoumb {
 				// 루트 엘레멘트의 모든 자식 엘레멘트 :: 이걸 첫번째 자식 엘레멘트라고 한다. 총 50개 (#text 제외)
 				// <Petition>, <Petition>, <Receipt> ...
 				NodeList firstChilderenNodes = root.getChildNodes();
+				if (firstChilderenNodes.getLength() == 0) {
+					try {
+						System.out.println("#############지정된 형식이 아님 제로파일처리");
+						PrintWriter pw = new PrintWriter(
+								new BufferedWriter(new FileWriter(file, true)));
+						pw.write("");
+						pw.flush();
+						pw.close();
 
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 				// 첫번째 자식 엘레멘트를 순회하면서...(#text 제외하고 50번)
 				for (int i = 0; i < firstChilderenNodes.getLength(); i++) {
 					
@@ -202,7 +215,7 @@ public class GetEpeEpoumb {
 					String extitem_data_regNm = " "; //민원 추가수집항목_입력,수정시 자료_응답자
 
 					Node firstChilderenNode = firstChilderenNodes.item(i);
-
+					
 					// xml이 들여쓰기 안 되어 있으면 노드를 정확하게 잡지 못하는 현상 방지
 					if ("#text".equals(firstChilderenNodes.item(i).getNodeName())) {
 						continue;
@@ -1328,6 +1341,17 @@ public class GetEpeEpoumb {
 						e.printStackTrace();
 					}
 
+				}
+				// 중간에 제로파일이 안만들어지고 프로그램이 끝나는것 을 방지
+				try {
+					PrintWriter pw = new PrintWriter(
+							new BufferedWriter(new FileWriter(file, true)));
+					pw.write("");
+					pw.flush();
+					pw.close();
+
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 
 			} catch (Exception e) {
